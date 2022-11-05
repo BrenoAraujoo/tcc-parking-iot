@@ -2,14 +2,14 @@ package com.tccparkingiot.api.model;
 
 import java.time.LocalDateTime;
 import javax.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@NoArgsConstructor
 public class ParkingRental {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +25,13 @@ public class ParkingRental {
     private LocalDateTime startDate;
 
     @UpdateTimestamp
-    @Column(nullable = false, columnDefinition = "datetime")
+    @Column(nullable = true, columnDefinition = "datetime")
     private LocalDateTime endDate;
 
     @Transient
-    private Integer horas;
+    private Integer hour;
+
+    @Transient
+    private Double value = 10.00;
 
 }
