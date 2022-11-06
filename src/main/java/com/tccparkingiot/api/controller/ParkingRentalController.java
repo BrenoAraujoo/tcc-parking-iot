@@ -5,10 +5,7 @@ import com.tccparkingiot.api.repository.ParkingRentalRepository;
 import com.tccparkingiot.api.service.ParkingRentalService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/parking-rentals")
@@ -28,5 +25,10 @@ public class ParkingRentalController {
     @GetMapping("/{id}")
     public ParkingRental findOne(@PathVariable Long id){
         return parkingRentalService.findOne(id);
+    }
+
+    @PostMapping
+    public ParkingRental save(@RequestBody ParkingRental parkingRental){
+        return parkingRentalService.save(parkingRental);
     }
 }

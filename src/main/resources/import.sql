@@ -4,9 +4,9 @@ insert into user (id,first_name,last_name,email,cpf) values (3,'Guilherme','Andr
 
 
 
-insert into vehicle (id, plate, model) values (1, '123-aaa','Nissan versa');
-insert into vehicle (id, plate, model) values (2, '123-aaa','Ford Focus');
-insert into vehicle (id, plate, model, user_id) values (3, '123-aaa','Nissan versa', 1);
+insert into vehicle (id, plate, model) values (1, 'aaa-123','Nissan versa');
+insert into vehicle (id, plate, model) values (2, 'bbb-456','Ford Focus');
+insert into vehicle (id, plate, model, user_id) values (3, 'ftx-000','Nissan versa', 1);
 
 
 insert into parking_spot (id, name, available) values (1,'p1',1),(2,'p2',0),(3,'p3',1),(4,'p4',0);

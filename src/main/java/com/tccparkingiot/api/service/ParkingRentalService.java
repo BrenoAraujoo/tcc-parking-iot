@@ -39,6 +39,13 @@ public class ParkingRentalService {
         return rental;
     }
 
+    public ParkingRental save(ParkingRental parkingRental){
+
+
+
+        return parkingRentalRepository.save(parkingRental);
+    }
+
     public Integer getTotalHours(ParkingRental parkingRental) {
         int startHour = parkingRental.getStartDate().getHour();
         int endHour = parkingRental.getEndDate().getHour();
