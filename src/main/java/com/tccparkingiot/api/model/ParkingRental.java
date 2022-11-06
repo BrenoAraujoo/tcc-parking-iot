@@ -22,12 +22,14 @@ public class ParkingRental {
     @JoinColumn(name = "parking_spot_id")
     @JsonIgnore
     private ParkingSpot parkingSpot;
-    @CreationTimestamp
+
+//    @CreationTimestamp
     @Column(nullable = false, columnDefinition = "datetime")
     private LocalDateTime startDate;
 
-    @UpdateTimestamp
+//    @UpdateTimestamp
     @Column(nullable = true, columnDefinition = "datetime")
+    @Setter(AccessLevel.NONE)
     private LocalDateTime endDate;
 
     @Transient

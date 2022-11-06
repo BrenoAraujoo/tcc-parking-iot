@@ -1,13 +1,12 @@
 package com.tccparkingiot.api.service;
 
 
-import com.tccparkingiot.api.exceptions.EntityInUseException;
 import com.tccparkingiot.api.exceptions.EntityNotFoundException;
 import com.tccparkingiot.api.model.ParkingRental;
 import com.tccparkingiot.api.repository.ParkingRentalRepository;
 import com.tccparkingiot.api.repository.PlateRepository;
+import java.time.LocalDateTime;
 import java.util.List;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +31,7 @@ public class ParkingRentalService {
                 p.setHour(getTotalHours(p));
                 p.setValue(calculateTotalValue(p.getValue(),p.getHour()));
             }else {
-                p.setHour(0);
+                p.setHour(1);
             }
 
         }
@@ -41,7 +40,7 @@ public class ParkingRentalService {
     public ParkingRental findById(Long id){
         ParkingRental rental = parkingRentalRepository.findById(id).get();
         if(rental.getEndDate() != null){
-            Integer totalHour = getTotalHours(rental);
+            var totalHour = getTotalHours(rental);
             rental.setHour(totalHour);
             rental.setValue(calculateTotalValue(rental.getValue(), totalHour));
             return rental;
@@ -52,13 +51,21 @@ public class ParkingRentalService {
     public ParkingRental save(ParkingRental parkingRental){
         var plateNumber = parkingRental.getPlate().getPlateNumber();
         var plate = plateService.findByNameOrSave(plateNumber);
+
         parkingRental.setPlate(plate);
+
+        var totalHour = getTotalHours(parkingRental);
+        parkingRental.setHour(totalHour);
+        parkingRental.setValue(calculateTotalValue(parkingRental.getValue()
+                ,totalHour));
+
         return parkingRentalRepository.save(parkingRental);
     }
 
     public Integer getTotalHours(ParkingRental parkingRental) {
         int startHour = parkingRental.getStartDate().getHour();
         int endHour = parkingRental.getEndDate().getHour();
+
 
              return endHour - startHour;
     }

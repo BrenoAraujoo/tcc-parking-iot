@@ -1,6 +1,7 @@
 package com.tccparkingiot;
 
 import com.tccparkingiot.api.model.ParkingRental;
+import com.tccparkingiot.api.service.ParkingRentalService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +15,7 @@ public class TccParkingIotApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+
 
 	}
 }
