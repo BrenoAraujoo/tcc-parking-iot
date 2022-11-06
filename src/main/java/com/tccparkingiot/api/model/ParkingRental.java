@@ -1,5 +1,6 @@
 package com.tccparkingiot.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 import lombok.*;
@@ -15,10 +16,11 @@ public class ParkingRental {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "vehicle_id")
-    private Vehicle vehicle;
+    @JoinColumn(name = "plate_id", nullable = true)
+    private Plate plate;
     @ManyToOne
     @JoinColumn(name = "parking_spot_id")
+    @JsonIgnore
     private ParkingSpot parkingSpot;
     @CreationTimestamp
     @Column(nullable = false, columnDefinition = "datetime")

@@ -23,8 +23,8 @@ public class ParkingRentalController {
     }
 
     @GetMapping("/{id}")
-    public ParkingRental findOne(@PathVariable Long id){
-        return parkingRentalService.findOne(id);
+    public ParkingRental findById(@PathVariable Long id){
+        return parkingRentalService.findById(id);
     }
 
     @PostMapping

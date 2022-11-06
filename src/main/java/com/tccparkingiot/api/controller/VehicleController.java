@@ -30,17 +30,11 @@ public class VehicleController {
         return vehicleService.findOrFail(id);
     }
 
-//    @GetMapping("/findByPlate")
-//    public Vehicle findByPlate(String plate){
-//        return vehicleRepository.findByPlate(plate);
-//    }
-
-
-    @GetMapping("/quantidade")
-    public Long quantidade (String plate){
-        List<Vehicle> list = vehicleRepository.findByPlate(plate);
-        return  list.stream().count();
+    @GetMapping("/findByPlate")
+    public Vehicle findByPlate(String plate){
+        return vehicleRepository.findByPlate(plate);
     }
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

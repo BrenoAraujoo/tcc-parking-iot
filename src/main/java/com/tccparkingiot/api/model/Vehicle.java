@@ -13,8 +13,10 @@ public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, unique = true)
-    private String plate;
+
+    @OneToOne(optional = false)
+    private Plate plate;
+
     private String model;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
