@@ -36,8 +36,9 @@ public class ParkingRentalController {
         return parkingRentalRepository.findByPlatePlateNumber(plateNumber);
     }
 
-    @PostMapping
-    public ParkingRental save(@RequestBody ParkingRental parkingRental){
-        return parkingRentalService.save(parkingRental);
+    @PostMapping("/{parkingSpotId}")
+    public ParkingRental save(@RequestBody ParkingRental parkingRental, @PathVariable Long parkingSpotId){
+        return parkingRentalService.save(parkingRental, parkingSpotId);
     }
+
 }

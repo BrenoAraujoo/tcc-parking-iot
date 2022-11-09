@@ -5,7 +5,6 @@ import com.tccparkingiot.api.exceptions.EntityNotFoundException;
 import com.tccparkingiot.api.model.ParkingRental;
 import com.tccparkingiot.api.repository.ParkingRentalRepository;
 import com.tccparkingiot.api.repository.PlateRepository;
-import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +21,8 @@ public class ParkingRentalService {
     @Autowired
     private PlateService plateService;
 
+    @Autowired
+    private ParkingSpotService parkingSpotService;
 
 
     public List<ParkingRental> listAll() {
@@ -48,11 +49,15 @@ public class ParkingRentalService {
         return rental;
     }
 
-    public ParkingRental save(ParkingRental parkingRental){
+    public ParkingRental save(ParkingRental parkingRental, Long parkingSpotId){
+        var parkingSpot = parkingSpotService.findOrFail(parkingSpotId);
+
         var plateNumber = parkingRental.getPlate().getPlateNumber();
         var plate = plateService.findByNameOrSave(plateNumber);
 
         parkingRental.setPlate(plate);
+        parkingSpot.setAvailable(false);
+        parkingRental.setParkingSpot(parkingSpot);
 
         var totalHour = getTotalHours(parkingRental);
         parkingRental.setHour(totalHour);
@@ -60,6 +65,7 @@ public class ParkingRentalService {
                 ,totalHour));
 
         return parkingRentalRepository.save(parkingRental);
+
     }
 
     public Integer getTotalHours(ParkingRental parkingRental) {
