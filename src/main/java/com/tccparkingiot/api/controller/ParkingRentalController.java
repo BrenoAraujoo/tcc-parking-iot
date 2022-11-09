@@ -27,6 +27,15 @@ public class ParkingRentalController {
         return parkingRentalService.findById(id);
     }
 
+    @GetMapping("/findByPlateId")
+    public ParkingRental findByPlateId(Long id){
+        return parkingRentalRepository.findByPlateId(id);
+    }
+    @GetMapping("/findByPlateNumber")
+    public List<ParkingRental> findByPlateNumber(String plateNumber){
+        return parkingRentalRepository.findByPlatePlateNumber(plateNumber);
+    }
+
     @PostMapping
     public ParkingRental save(@RequestBody ParkingRental parkingRental){
         return parkingRentalService.save(parkingRental);
