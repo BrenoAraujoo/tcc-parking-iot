@@ -6,11 +6,11 @@ import com.tccparkingiot.api.repository.PlateRepository;
 import com.tccparkingiot.api.service.PlateService;
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.PushBuilder;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/plates")
@@ -22,18 +22,42 @@ public class PlateController {
     private PlateRepository plateRepository;
 
     @GetMapping
-    List<Plate> listAll(){
+    public List<Plate> listAll(){
         return plateService.listAll();
     }
 
-    @GetMapping("/findByPlateNumber")
-    Optional<Plate> findByPlateNumber(String plateNumber){
-        return plateRepository.findByplateNumber(plateNumber);
+    @GetMapping("/{id}")
+    public Plate findById(@PathVariable Long id){
+        return plateService.findOrFail(id);
+    }
+
+    @GetMapping("/find-by-plate")
+    public Plate findByPlateNumber(String plateNumber){
+        return plateService.findByplateNumber(plateNumber);
     }
 
 
-    @GetMapping("/findByNameOrSave")
+    @GetMapping("/find-by-name-or-save")
     public Plate findByNameOrSave(String plateNumber){
         return plateService.findByNameOrSave(plateNumber);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Plate save(@RequestBody Plate plate){
+        return plateService.save(plate);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id){
+        plateService.delete(id);
+    }
+
+    @PutMapping("/{id}")
+    public Plate update(@RequestBody Plate plate, @PathVariable Long id){
+        var actualPlate = plateService.findOrFail(id);
+        BeanUtils.copyProperties(plate,actualPlate, "id");
+        return plateRepository.save(actualPlate);
     }
 }

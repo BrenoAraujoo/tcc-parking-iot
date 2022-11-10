@@ -1,6 +1,5 @@
 package com.tccparkingiot.api.controller;
 
-import com.tccparkingiot.api.model.ParkingRental;
 import com.tccparkingiot.api.model.ParkingSpot;
 import com.tccparkingiot.api.repository.ParkingSpotRepository;
 import com.tccparkingiot.api.service.ParkingSpotService;
@@ -33,9 +32,9 @@ public class ParkingSpotController {
         return parkingSpotRepository.save(parkingSpot);
     }
 
-    @PutMapping("/change-availability/{id}")
-    public ParkingSpot changeAvailability(@PathVariable Long id){
-        return parkingSpotService.changeAvailability(id);
+    @PutMapping("/set-parking-spot-available/{id}")
+    public ParkingSpot setParkingSpotAvailable(@PathVariable Long id){
+        return parkingSpotService.setParkingSpotAvailable(id);
     }
 
 }

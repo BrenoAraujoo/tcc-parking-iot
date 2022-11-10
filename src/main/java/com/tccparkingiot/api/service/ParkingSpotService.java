@@ -19,15 +19,9 @@ public class ParkingSpotService {
                 ));
     }
 
-    public ParkingSpot changeAvailability(Long id){
+    public ParkingSpot setParkingSpotAvailable(Long id){
         var parkingSpot = findOrFail(id);
-        if(parkingSpot.getAvailable()){
-            parkingSpot.setAvailable(false);
-            return parkingSpotRepository.save(parkingSpot);
-        }else{
             parkingSpot.setAvailable(true);
-        }
-
             return parkingSpotRepository.save(parkingSpot);
     }
 
