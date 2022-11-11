@@ -29,7 +29,7 @@ public class VehicleController {
         return vehicleService.findOrFail(id);
     }
 
-    @GetMapping("/findByPlate")
+    @GetMapping("/find-by-plate")
     public Vehicle findByPlate(String plate){
         return vehicleService.findByPlate(plate);
     }

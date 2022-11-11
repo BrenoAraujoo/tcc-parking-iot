@@ -5,6 +5,7 @@ import com.tccparkingiot.api.repository.ParkingSpotRepository;
 import com.tccparkingiot.api.service.ParkingSpotService;
 import java.security.PublicKey;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,10 +29,17 @@ public class ParkingSpotController {
         return parkingSpotService.findOrFail(id);
     }
 
+    @GetMapping("/find-by-plate")
+    public ParkingSpot findByPlate(String plateNumber){
+        return parkingSpotService.findByPlate(plateNumber);
+    }
+
     @GetMapping("/available-parkingspot")
     public Long getAvailableParkingSpots(){
         return parkingSpotService.getAvailableParkingSpots();
     }
+
+
     @PostMapping
     public ParkingSpot save(@RequestBody ParkingSpot parkingSpot){
         return parkingSpotRepository.save(parkingSpot);
