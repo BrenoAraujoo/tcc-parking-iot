@@ -14,4 +14,6 @@ public class ParkingSpot {
     @Column(nullable = false)
     private String name;
     private Boolean available = true;
+    @OneToOne
+    private Plate plate;
 }

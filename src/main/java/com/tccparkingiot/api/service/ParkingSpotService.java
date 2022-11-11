@@ -2,6 +2,7 @@ package com.tccparkingiot.api.service;
 
 import com.tccparkingiot.api.exceptions.EntityNotFoundException;
 import com.tccparkingiot.api.model.ParkingSpot;
+import com.tccparkingiot.api.model.Plate;
 import com.tccparkingiot.api.repository.ParkingSpotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,11 @@ public class ParkingSpotService {
         var parkingSpot = findOrFail(id);
             parkingSpot.setAvailable(true);
             return parkingSpotRepository.save(parkingSpot);
+    }
+
+    public ParkingSpot setParkingSpotPlate(ParkingSpot parkingSpot, Plate plate){
+        parkingSpot.setPlate(plate);
+       return  parkingSpotRepository.save(parkingSpot);
     }
 
 }
