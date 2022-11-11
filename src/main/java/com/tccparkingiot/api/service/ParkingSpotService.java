@@ -23,12 +23,21 @@ public class ParkingSpotService {
     public ParkingSpot setParkingSpotAvailable(Long id){
         var parkingSpot = findOrFail(id);
             parkingSpot.setAvailable(true);
+            parkingSpot.setPlate(null);
             return parkingSpotRepository.save(parkingSpot);
     }
 
     public ParkingSpot setParkingSpotPlate(ParkingSpot parkingSpot, Plate plate){
         parkingSpot.setPlate(plate);
        return  parkingSpotRepository.save(parkingSpot);
+    }
+
+    public Long getAvailableParkingSpots(){
+        return parkingSpotRepository
+                .findAll()
+                .stream()
+                .filter(ParkingSpot::getAvailable)
+                .count();
     }
 
 }

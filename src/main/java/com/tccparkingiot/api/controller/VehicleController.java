@@ -1,6 +1,5 @@
 package com.tccparkingiot.api.controller;
 
-import com.tccparkingiot.api.exceptions.EntityNotFoundException;
 import com.tccparkingiot.api.model.Vehicle;
 import com.tccparkingiot.api.repository.VehicleRepository;
 import com.tccparkingiot.api.service.VehicleService;
@@ -32,7 +31,7 @@ public class VehicleController {
 
     @GetMapping("/findByPlate")
     public Vehicle findByPlate(String plate){
-        return vehicleRepository.findByPlate(plate);
+        return vehicleService.findByPlate(plate);
     }
 
 

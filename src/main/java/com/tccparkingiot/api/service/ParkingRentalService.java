@@ -7,6 +7,7 @@ import com.tccparkingiot.api.repository.ParkingRentalRepository;
 import com.tccparkingiot.api.repository.PlateRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,17 +28,10 @@ public class ParkingRentalService {
 
     public List<ParkingRental> listAll() {
         List<ParkingRental> list = parkingRentalRepository.findAll();
-        for (ParkingRental p : list) {
-            if (p.getEndDate() != null){
-                p.setHour(getTotalHours(p));
-                p.setValue(calculateTotalValue(p.getValue(),p.getHour()));
-            }else {
-                p.setHour(1);
-            }
-
-        }
+        setTotalHourAndValue(list);
         return list;
     }
+
     public ParkingRental findById(Long id){
         ParkingRental rental = parkingRentalRepository.findById(id).get();
         if(rental.getEndDate() != null){
@@ -48,6 +42,23 @@ public class ParkingRentalService {
         }
         return rental;
     }
+
+    public List<ParkingRental> findByPlateNumber(String plateNumber){
+        var  list = parkingRentalRepository.findByPlatePlateNumber(plateNumber);
+        setTotalHourAndValue(list);
+        return list;
+    }
+
+    public void delete(Long id){
+        try {
+            parkingRentalRepository.deleteById(id);
+        }catch (EmptyResultDataAccessException e){
+            throw new EntityNotFoundException(
+                    String.format(MSG_PARKING_RENTAL_NOT_FOUND,id)
+            );
+        }
+    }
+
 
     public ParkingRental save(ParkingRental parkingRental, Long parkingSpotId){
         var parkingSpot = parkingSpotService.findOrFail(parkingSpotId);
@@ -68,6 +79,17 @@ public class ParkingRentalService {
 
         return parkingRentalRepository.save(parkingRental);
 
+    }
+    private void setTotalHourAndValue(List<ParkingRental> list) {
+        for (ParkingRental p : list) {
+            if (p.getEndDate() != null){
+                p.setHour(getTotalHours(p));
+                p.setValue(calculateTotalValue(p.getValue(),p.getHour()));
+            }else {
+                p.setHour(1);
+            }
+
+        }
     }
 
     public Integer getTotalHours(ParkingRental parkingRental) {

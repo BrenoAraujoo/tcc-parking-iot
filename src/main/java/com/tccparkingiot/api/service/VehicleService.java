@@ -46,5 +46,10 @@ public class VehicleService {
                 String.format(MSG_VEHICLE_NOT_FOUND, id)));
 
     }
-}
+
+    public Vehicle findByPlate(String plateNumber){
+            var vehicle = vehicleRepository.findByPlatePlateNumber(plateNumber);
+            return vehicle;
+        }
+    }
 
