@@ -9,6 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @RequiredArgsConstructor
+@Table(name = "tb_plate")
 public class Plate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

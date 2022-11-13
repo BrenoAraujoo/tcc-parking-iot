@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Table(name = "tb_vehicle")
 public class Vehicle {
 
     @Id

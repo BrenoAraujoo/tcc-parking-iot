@@ -11,6 +11,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
+@Table(name = "tb_parking_rental")
 public class ParkingRental {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,11 +25,11 @@ public class ParkingRental {
     private ParkingSpot parkingSpot;
 
 //    @CreationTimestamp
-    @Column(nullable = false, columnDefinition = "datetime")
+    @Column(nullable = false, columnDefinition = "timestamp")
     private LocalDateTime startDate;
 
 //    @UpdateTimestamp
-    @Column(nullable = true, columnDefinition = "datetime")
+    @Column(nullable = true, columnDefinition = "timestamp")
     @Setter(AccessLevel.NONE)
     private LocalDateTime endDate;
 

@@ -1,6 +1,10 @@
 spring:
+  jpa:
+    open-in-view: true
+  datasource:
+    url: ${DATASOURCE_URL}
   profiles:
-    active: dev
+    active: prod
   output:
     ansi:
       enabled: ALWAYS

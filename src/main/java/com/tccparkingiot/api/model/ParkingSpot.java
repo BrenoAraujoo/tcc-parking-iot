@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 @Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Table(name = "tb_parking_spot")
 public class ParkingSpot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
