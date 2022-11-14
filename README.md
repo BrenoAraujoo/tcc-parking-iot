@@ -205,8 +205,8 @@ Endereço de acesso: https://tcc-parking-iot.herokuapp.com
             },
             "model": "Nissan versa"
         }
-    ]
-}
+            ]
+        }
     ``` 
     
 *  **Parâmetros via url**
