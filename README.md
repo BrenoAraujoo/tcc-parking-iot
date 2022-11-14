@@ -232,7 +232,7 @@ Endereço de acesso: https://tcc-parking-iot.herokuapp.com
   **Status Code:** 200
   
     ```json
-[
+    [
     {
         "id": 1,
         "plate": {
@@ -258,10 +258,8 @@ Endereço de acesso: https://tcc-parking-iot.herokuapp.com
         "model": "Nissan versa"
     }
     ]
-
     ``` 
-    ### Remover veículo
-    
+### Remover veículo
     
 *  **URL**
 
@@ -283,7 +281,7 @@ Endereço de acesso: https://tcc-parking-iot.herokuapp.com
   
    ### Cadastro veículo
   
-  * **URL**
+* **URL**
     
   `/vehicles`
   
@@ -598,7 +596,7 @@ Endereço de acesso: https://tcc-parking-iot.herokuapp.com
 * **Exemplo de envio**
 
     ```json
-{
+    {
         "name": "p7"
     }
     ``` 
