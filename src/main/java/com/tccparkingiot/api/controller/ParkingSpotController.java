@@ -25,48 +25,48 @@ public class ParkingSpotController {
 
     @Autowired
     private PlateService plateService;
+
     @GetMapping
-    public List<ParkingSpot> listAll(){
+    public List<ParkingSpot> listAll() {
         return parkingSpotRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public ParkingSpot findById(@PathVariable Long id){
+    public ParkingSpot findById(@PathVariable Long id) {
         return parkingSpotService.findOrFail(id);
     }
 
     @GetMapping("/find-by-plate")
-    public ParkingSpot findByPlate(String plateNumber){
+    public ParkingSpot findByPlate(String plateNumber) {
         return parkingSpotService.findByPlate(plateNumber);
     }
 
     @GetMapping("/available-parkingspot")
-    public Long getAvailableParkingSpots(){
+    public Long getAvailableParkingSpots() {
         return parkingSpotService.getAvailableParkingSpots();
     }
 
 
     @PostMapping
-    public ParkingSpot save(@RequestBody ParkingSpot parkingSpot){
+    public ParkingSpot save(@RequestBody ParkingSpot parkingSpot) {
         return parkingSpotRepository.save(parkingSpot);
     }
 
     @PutMapping("/set-parking-spot-available/{id}")
-    public ParkingSpot setParkingSpotAvailable(@PathVariable Long id){
+    public ParkingSpot setParkingSpotAvailable(@PathVariable Long id) {
         return parkingSpotService.setParkingSpotAvailable(id);
     }
 
     @PutMapping("/{id}")
-    public ParkingSpot update(@PathVariable Long id,@RequestBody ParkingSpot parkingSpot){
+    public ParkingSpot update(@PathVariable Long id, @RequestBody ParkingSpot parkingSpot) {
 
         var plate = plateService.findOrFail(parkingSpot.getPlate().getId());
         var actualParkingSpot = parkingSpotService.findOrFail(id);
         actualParkingSpot.setPlate(plate);
-        BeanUtils.copyProperties(parkingSpot,actualParkingSpot,"id","plate");
+        BeanUtils.copyProperties(parkingSpot, actualParkingSpot, "id", "plate");
         parkingSpotRepository.save(actualParkingSpot);
         return actualParkingSpot;
     }
-
 
 
 }
