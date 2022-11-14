@@ -4,7 +4,7 @@ spring:
   datasource:
     url: ${DATASOURCE_URL}
   profiles:
-    active: prod
+    active: dev
   output:
     ansi:
       enabled: ALWAYS

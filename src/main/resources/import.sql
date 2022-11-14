@@ -13,6 +13,6 @@ insert into tb_vehicle (plate_id, model, user_id) values (3,'Nissan versa', 1);
 insert into tb_parking_spot (name, available) values ('p1',false),('p2',false),('p3',false),('p4',false);
 
 --
---insert into tb_parking_rental (id, plate_id, parking_spot_id, start_date, end_date) values (1,1,1,'2022-11-05T13:19:59', '2022-11-05T14:19:59');
---insert into tb_parking_rental (id, plate_id, parking_spot_id, start_date, end_date) values (2,2,2,'2022-11-05T14:19:59', '2022-11-05T17:19:59');
---insert into tb_parking_rental (id, plate_id, parking_spot_id, start_date) values (3,3,3,'2022-11-05T13:19:59');
+insert into tb_parking_rental (id, plate_id, parking_spot_id, start_date, end_date) values (1,1,1,'2022-11-05T13:19:59', '2022-11-05T14:19:59');
+insert into tb_parking_rental (id, plate_id, parking_spot_id, start_date, end_date) values (2,2,2,'2022-11-05T14:19:59', '2022-11-05T17:19:59');
+insert into tb_parking_rental (id, plate_id, parking_spot_id, start_date) values (3,3,3,'2022-11-05T13:19:59');
