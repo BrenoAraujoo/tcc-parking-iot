@@ -102,7 +102,7 @@ Endereço de acesso: https://tcc-parking-iot.herokuapp.com
         "cpf": "12132123",
         "vehicles": []
     }
-]
+    ]
 
     ``` 
     ### Remover usuário
@@ -128,7 +128,7 @@ Endereço de acesso: https://tcc-parking-iot.herokuapp.com
   
   ### Cadastro usuário
   
-  * **URL**
+* **URL**
     
   `/users`
   
@@ -257,13 +257,13 @@ Endereço de acesso: https://tcc-parking-iot.herokuapp.com
         },
         "model": "Nissan versa"
     }
-]
+    ]
 
     ``` 
     ### Remover veículo
     
     
-* **URL**
+*  **URL**
 
     `/vehicles{id}`
     
