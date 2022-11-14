@@ -451,7 +451,7 @@ Endereço de acesso: https://tcc-parking-iot.herokuapp.com
   
    ### Cadastro locação
   
-  * **URL**
+* **URL**
     
   `/parking-rentals`
   
