@@ -297,7 +297,7 @@ Endereço de acesso: https://tcc-parking-iot.herokuapp.com
 * **Exemplo de envio**
 
     ```json
-{
+    {
 
         "plate": "123-aaa",
         "model": "Ford Focus"
@@ -336,7 +336,7 @@ Endereço de acesso: https://tcc-parking-iot.herokuapp.com
   
     ```json
     
- {
+    {
     "id": 1,
     "plate": {
         "id": 1,
@@ -346,7 +346,7 @@ Endereço de acesso: https://tcc-parking-iot.herokuapp.com
     "endDate": "2022-11-05T11:19:59",
     "hour": 1,
     "value": 10.0
-}
+    }
     ``` 
     
 *  **Parâmetros via url**
@@ -372,7 +372,7 @@ Endereço de acesso: https://tcc-parking-iot.herokuapp.com
   **Status Code:** 200
   
     ```json
-[
+    [
     {
         "id": 1,
         "plate": {
@@ -406,7 +406,7 @@ Endereço de acesso: https://tcc-parking-iot.herokuapp.com
         "hour": 1,
         "value": 10.0
     }
-]
+    ]
 
     ``` 
 
@@ -428,7 +428,7 @@ Endereço de acesso: https://tcc-parking-iot.herokuapp.com
   **Status Code:** 200
   
     ```json
-[
+    [
     {
         "id": 1,
         "plate": {
@@ -440,7 +440,7 @@ Endereço de acesso: https://tcc-parking-iot.herokuapp.com
         "hour": 1,
         "value": 10.0
     }
-]
+    ]
 
     ``` 
 *  **Parâmetros via url**
@@ -467,7 +467,7 @@ Endereço de acesso: https://tcc-parking-iot.herokuapp.com
 * **Exemplo de envio**
 
     ```json
-{
+    {
 
     "plate": {
         "plateNumber": "aaa-1230"
@@ -476,7 +476,7 @@ Endereço de acesso: https://tcc-parking-iot.herokuapp.com
     "startDate": "2022-11-05T10:19:59",
     "endDate": "2022-11-05T11:19:59"
 
-        }
+    }
     ``` 
 * **Observação**
 
@@ -511,7 +511,7 @@ Endereço de acesso: https://tcc-parking-iot.herokuapp.com
   **Status Code:** 200
   
     ```json
-{
+    {
     "id": 1,
     "name": "p1",
     "available": false,
@@ -519,7 +519,7 @@ Endereço de acesso: https://tcc-parking-iot.herokuapp.com
         "id": 4,
         "plateNumber": "aaa-1230"
         }
-}
+    }
     ``` 
     
 *  **Parâmetros via url**
@@ -545,7 +545,7 @@ Endereço de acesso: https://tcc-parking-iot.herokuapp.com
   **Status Code:** 200
   
     ```json
-[
+    [
     {
         "id": 1,
         "name": "p1",
@@ -573,7 +573,7 @@ Endereço de acesso: https://tcc-parking-iot.herokuapp.com
         "available": false,
         "plate": null
     }
-]
+    ]
 
     ``` 
 
