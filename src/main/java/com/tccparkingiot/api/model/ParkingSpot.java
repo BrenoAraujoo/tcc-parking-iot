@@ -14,7 +14,7 @@ public class ParkingSpot {
     private Long id;
     @Column(nullable = false)
     private String name;
-    private Boolean available = true;
+    private Boolean available;
     @OneToOne
     private Plate plate;
 }

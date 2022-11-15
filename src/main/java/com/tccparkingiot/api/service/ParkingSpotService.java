@@ -1,15 +1,10 @@
 package com.tccparkingiot.api.service;
 
 import com.tccparkingiot.api.exceptions.EntityNotFoundException;
-import com.tccparkingiot.api.model.ParkingRental;
 import com.tccparkingiot.api.model.ParkingSpot;
 import com.tccparkingiot.api.model.Plate;
-import com.tccparkingiot.api.model.Vehicle;
 import com.tccparkingiot.api.repository.ParkingSpotRepository;
-import java.util.Collection;
-import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,11 +26,11 @@ public class ParkingSpotService {
     }
 
     public ParkingSpot save(ParkingSpot parkingSpot){
+
         var plateId = parkingSpot.getPlate().getId();
         var plate =plateService.findOrFail(plateId);
-
-
         BeanUtils.copyProperties(plate,parkingSpot.getPlate(),"id");
+
         return parkingSpotRepository.save(parkingSpot);
     }
 
@@ -57,9 +52,8 @@ public class ParkingSpotService {
     }
 
 
-    public ParkingSpot setParkingSpotAvailable(Long id){
+    public ParkingSpot setParkingSpotStatus(Long id){
         var parkingSpot = findOrFail(id);
-            parkingSpot.setAvailable(true);
             parkingSpot.setPlate(null);
             return parkingSpotRepository.save(parkingSpot);
     }
@@ -75,7 +69,7 @@ public class ParkingSpotService {
                 .stream()
                 .filter(ParkingSpot::getAvailable)
                 .count();
-    }
 
+    }
 
 }

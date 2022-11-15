@@ -5,8 +5,6 @@ import com.tccparkingiot.api.model.Plate;
 import com.tccparkingiot.api.repository.PlateRepository;
 import com.tccparkingiot.api.service.PlateService;
 import java.util.List;
-import java.util.Optional;
-import javax.servlet.http.PushBuilder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
