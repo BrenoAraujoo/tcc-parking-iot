@@ -69,7 +69,7 @@ public class ParkingRentalService {
         parkingRental.setPlate(plate);
 
         parkingSpot.setAvailable(false);
-        parkingSpotService.setParkingSpotPlate(parkingSpot,plate); //Set the current plate on parking spot
+//        parkingSpotService.setParkingSpotPlate(parkingSpot,plate); //Set the current plate on parking spot
         parkingRental.setParkingSpot(parkingSpot);// Set the parking spot on parking rental
 
         var totalHour = getTotalHours(parkingRental);

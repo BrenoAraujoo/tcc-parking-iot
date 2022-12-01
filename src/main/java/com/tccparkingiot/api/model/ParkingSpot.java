@@ -3,6 +3,7 @@ package com.tccparkingiot.api.model;
 import javax.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.lang.Nullable;
 
 @Entity
 @Data
@@ -15,6 +16,6 @@ public class ParkingSpot {
     @Column(nullable = false)
     private String name;
     private Boolean available;
-    @OneToOne
+    @OneToOne(optional = true)
     private Plate plate;
 }

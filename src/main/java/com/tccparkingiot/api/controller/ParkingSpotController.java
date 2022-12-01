@@ -49,13 +49,8 @@ public class ParkingSpotController {
     }
 
     @PutMapping("/set-parking-spot-status/{id}")
-    public ParkingSpot setParkingSpotAvailable(@PathVariable Long id, @RequestBody ParkingSpot parkingSpot) {
-
-        var actualParkingSpot = parkingSpotService.findOrFail(id);
-        BeanUtils.copyProperties(parkingSpot,actualParkingSpot,"id","name");
-
-        parkingSpotService.save(actualParkingSpot);
-        return actualParkingSpot;
+    public ParkingSpot setParkingSpotAvailable(@PathVariable Long id) {
+        return parkingSpotService.clearAndSave(id);
     }
 
     @PutMapping("/{id}")
@@ -72,5 +67,21 @@ public class ParkingSpotController {
         return actualParkingSpot;
     }
 
+    @PutMapping("/ocuppy-parking-spot-and-save-plate/{id}")
+    public ParkingSpot occupyParkingSpotAndSavePlate(@PathVariable Long id, @RequestBody ParkingSpot parkingSpot) {
+        /*
+        If plate doesn't exist, create a new one
+         */
+        var plate = plateService.findByNameOrSave(parkingSpot.getPlate().getPlateNumber());
+        var actualParkingSpot = parkingSpotService.findOrFail(id);
+
+        actualParkingSpot.setPlate(plate);
+        actualParkingSpot.setAvailable(false);
+
+        BeanUtils.copyProperties(parkingSpot, actualParkingSpot, "id", "plate","available");
+
+        parkingSpotService.save(actualParkingSpot);
+        return actualParkingSpot;
+    }
 
 }

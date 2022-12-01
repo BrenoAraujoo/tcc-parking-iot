@@ -34,6 +34,13 @@ public class ParkingSpotService {
         return parkingSpotRepository.save(parkingSpot);
     }
 
+    public ParkingSpot clearAndSave(Long id){
+        var parkingSpot = findOrFail(id);
+        parkingSpot.setPlate(null);
+        parkingSpot.setAvailable(true);
+        return parkingSpotRepository.save(parkingSpot);
+    }
+
 
 
     public ParkingSpot findByPlate(String plateNumber){

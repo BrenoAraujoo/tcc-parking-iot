@@ -33,6 +33,8 @@ public class ParkingRental {
     @Setter(AccessLevel.NONE)
     private LocalDateTime endDate;
 
+    @Column(nullable = false)
+    private Boolean isRegistered;
     @Transient
     private Integer hour;
 
