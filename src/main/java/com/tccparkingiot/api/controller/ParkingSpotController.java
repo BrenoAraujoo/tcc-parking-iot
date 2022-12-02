@@ -78,7 +78,7 @@ public class ParkingSpotController {
         actualParkingSpot.setPlate(plate);
         actualParkingSpot.setAvailable(false);
 
-        BeanUtils.copyProperties(parkingSpot, actualParkingSpot, "id", "plate","available");
+        BeanUtils.copyProperties(parkingSpot, actualParkingSpot, "id", "plate","available","name");
 
         parkingSpotService.save(actualParkingSpot);
         return actualParkingSpot;
