@@ -5,6 +5,7 @@ import com.tccparkingiot.api.exceptions.EntityNotFoundException;
 import com.tccparkingiot.api.model.ParkingRental;
 import com.tccparkingiot.api.repository.ParkingRentalRepository;
 import com.tccparkingiot.api.repository.PlateRepository;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -73,6 +74,7 @@ public class ParkingRentalService {
         parkingRental.setParkingSpot(parkingSpot);// Set the parking spot on parking rental
 
         var totalHour = getTotalHours(parkingRental);
+
         parkingRental.setHour(totalHour);
         parkingRental.setValue(calculateTotalValue(parkingRental.getValue()
                 ,totalHour));
@@ -93,12 +95,14 @@ public class ParkingRentalService {
     }
 
     public Integer getTotalHours(ParkingRental parkingRental) {
-        int startHour = parkingRental.getStartDate().getHour();
-        int endHour = parkingRental.getEndDate().getHour();
+        Integer startHour = parkingRental.getStartDate().getHour();
+        Integer endHour = parkingRental.getEndDate().getHour();
+                return endHour - startHour;
 
 
-             return endHour - startHour;
     }
+
+
 
     public Double calculateTotalValue(Double value, Integer hour){
         return hour * value;

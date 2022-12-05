@@ -1,8 +1,12 @@
 package com.tccparkingiot.api.controller;
 
 import com.tccparkingiot.api.model.ParkingRental;
+import com.tccparkingiot.api.repository.ParkReservationRepository;
 import com.tccparkingiot.api.repository.ParkingRentalRepository;
+import com.tccparkingiot.api.repository.PlateRepository;
+import com.tccparkingiot.api.service.ParkReservationService;
 import com.tccparkingiot.api.service.ParkingRentalService;
+import com.tccparkingiot.api.service.PlateService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +21,18 @@ public class ParkingRentalController {
 
     @Autowired
     private ParkingRentalService parkingRentalService;
+
+    @Autowired
+    private PlateService plateService;
+
+    @Autowired
+    private PlateRepository plateRepository;
+
+    @Autowired
+    private ParkReservationRepository parkReservationRepository;
+
+    @Autowired
+    ParkReservationService parkReservationService;
 
     @GetMapping
     List<ParkingRental> listAll(){
@@ -37,10 +53,27 @@ public class ParkingRentalController {
         return parkingRentalService.findByPlateNumber(plateNumber);
     }
 
-    @PostMapping("/{parkingSpotId}")
-    public ParkingRental save(@RequestBody ParkingRental parkingRental, @PathVariable Long parkingSpotId){
+    @PostMapping("/{parkingSpotId}/{plateNumber}")
+    public ParkingRental save(@RequestBody ParkingRental parkingRental, @PathVariable Long parkingSpotId, @PathVariable String plateNumber){
+
+
+        var plate = plateService.findByNameOrSave(plateNumber);
+        parkingRental.setPlate(plate);
+
+        var parkReservation = parkReservationService.getFirstResult(plateNumber);
+        parkingRental.setStartDate(parkReservation.getStartDate());//Copy start date from parkReservation
+
+        parkReservation.setFeeCharged(true); // Changes fee charged and saves
+
+//        parkReservationRepository.deleteById(parkReservation.getId());
+        parkReservationRepository.deleteByplateNumber(plateNumber);
         return parkingRentalService.save(parkingRental, parkingSpotId);
     }
+
+
+
+
+
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
