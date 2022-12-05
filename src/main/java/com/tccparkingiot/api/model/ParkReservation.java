@@ -22,6 +22,5 @@ public class ParkReservation {
     private String plateNumber;
     private LocalDateTime startDate;
 
-    private Boolean feeCharged;
 
 }

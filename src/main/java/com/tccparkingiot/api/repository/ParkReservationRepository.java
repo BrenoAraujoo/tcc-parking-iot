@@ -20,7 +20,8 @@ public interface ParkReservationRepository extends JpaRepository<ParkReservation
 //        ParkReservation findFirstByplateNumberOrderByIdDesc(String plateNumber);
 //        List<ParkReservation> findByplateNumberOrderByIdDesc(String plateNumber);
 
-        @Query(value = "Select t from ParkReservation t where t.feeCharged = false and t.plateNumber = :plateNumber order by id asc")
+//        @Query(value = "Select t from ParkReservation t where t.feeCharged = false and t.plateNumber = :plateNumber order by id asc")
+        @Query(value = "Select t from ParkReservation t where t.plateNumber = :plateNumber order by id asc")
         List <ParkReservation> getFirstResult(String plateNumber);
 
 

@@ -23,11 +23,7 @@ public class ParkReservationService {
                 .get(0);
     }
 
-    public ParkReservation setFeeChargedToTrue(Long id){
-        ParkReservation parkReservation = repository.findById(id).get();
-        parkReservation.setFeeCharged(true);
-        return repository.save(parkReservation);
-    }
+
 
 
 }

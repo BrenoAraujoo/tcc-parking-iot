@@ -63,8 +63,6 @@ public class ParkingRentalController {
         var parkReservation = parkReservationService.getFirstResult(plateNumber);
         parkingRental.setStartDate(parkReservation.getStartDate());//Copy start date from parkReservation
 
-        parkReservation.setFeeCharged(true); // Changes fee charged and saves
-
 //        parkReservationRepository.deleteById(parkReservation.getId());
         parkReservationRepository.deleteByplateNumber(plateNumber);
         return parkingRentalService.save(parkingRental, parkingSpotId);
