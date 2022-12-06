@@ -7,6 +7,7 @@ import com.tccparkingiot.api.service.ParkingRentalService;
 import com.tccparkingiot.api.service.PlateService;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -74,6 +75,14 @@ public class ParkingRentalController {
         return parkingRentalService.save(parkingRental, parkingSpotId);
     }
 
+
+    @PutMapping("/set-end-date/{id}")
+    public ParkingRental setEndDate(@PathVariable Long id, @RequestBody ParkingRental parkingRental){
+        var actualParkingRental = parkingRentalService.findOrFail(id);
+        BeanUtils.copyProperties(parkingRental,actualParkingRental,"id","plate","parkingSpot", "startDate","isRegistered");
+        return parkingRentalRepository.save(actualParkingRental);
+
+    }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

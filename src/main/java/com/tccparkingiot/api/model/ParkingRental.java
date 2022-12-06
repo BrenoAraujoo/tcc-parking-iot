@@ -30,7 +30,6 @@ public class ParkingRental {
 
 //    @CreationTimestamp
     @Column(nullable = true, columnDefinition = "timestamp")
-    @Setter(AccessLevel.NONE)
     private LocalDateTime endDate;
 
     @Column(nullable = false)
