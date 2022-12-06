@@ -10,10 +10,6 @@ insert into tb_user (first_name,last_name,email,cpf, plate_id) values ('Gustavo'
 insert into tb_user (first_name,last_name,email,cpf, plate_id) values ('Guilherme','Andrade','guilherme@hotmail.com','12132123', 3);
 
 
-insert into tb_vehicle (plate_id, model) values (1,'Nissan versa');
-insert into tb_vehicle (plate_id, model) values (2,'Ford Focus');
-insert into tb_vehicle (plate_id, model) values (3,'Nissan versa');
-
 --Parking spot
 insert into tb_parking_spot (name, available) values ('A1',true),('A2',true),('A3',true),('A4',true),('A5',true),('A6',true);
 
