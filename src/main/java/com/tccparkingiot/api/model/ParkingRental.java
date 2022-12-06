@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Data
@@ -16,9 +14,11 @@ public class ParkingRental {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
     @JoinColumn(name = "plate_id", nullable = true)
     private Plate plate;
+
     @ManyToOne
     @JoinColumn(name = "parking_spot_id")
     @JsonIgnore
@@ -35,10 +35,5 @@ public class ParkingRental {
 
     @Column(nullable = false)
     private Boolean isRegistered;
-    @Transient
-    private Integer hour;
-
-    @Transient
-    private Double value = 10.00;
 
 }

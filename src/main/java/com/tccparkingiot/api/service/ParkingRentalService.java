@@ -5,7 +5,7 @@ import com.tccparkingiot.api.exceptions.EntityNotFoundException;
 import com.tccparkingiot.api.model.ParkingRental;
 import com.tccparkingiot.api.repository.ParkingRentalRepository;
 import com.tccparkingiot.api.repository.PlateRepository;
-import java.time.LocalDateTime;
+import com.tccparkingiot.api.repository.UserRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -26,28 +26,21 @@ public class ParkingRentalService {
     @Autowired
     private ParkingSpotService parkingSpotService;
 
+    @Autowired
+    private UserRepository userRepository;
+
 
     public List<ParkingRental> listAll() {
-        List<ParkingRental> list = parkingRentalRepository.findAll();
-        setTotalHourAndValue(list);
-        return list;
+     return parkingRentalRepository.findAll();
     }
 
     public ParkingRental findById(Long id){
-        ParkingRental rental = parkingRentalRepository.findById(id).get();
-        if(rental.getEndDate() != null){
-            var totalHour = getTotalHours(rental);
-            rental.setHour(totalHour);
-            rental.setValue(calculateTotalValue(rental.getValue(), totalHour));
-            return rental;
-        }
-        return rental;
+        return parkingRentalRepository.findById(id).get();
     }
 
     public List<ParkingRental> findByPlateNumber(String plateNumber){
-        var  list = parkingRentalRepository.findByPlatePlateNumber(plateNumber);
-        setTotalHourAndValue(list);
-        return list;
+        return parkingRentalRepository.findByPlatePlateNumber(plateNumber);
+
     }
 
     public void delete(Long id){
@@ -70,42 +63,15 @@ public class ParkingRentalService {
         parkingRental.setPlate(plate);
 
         parkingSpot.setAvailable(false);
-//        parkingSpotService.setParkingSpotPlate(parkingSpot,plate); //Set the current plate on parking spot
+
+        var user = userRepository.findByPlatePlateNumber(plateNumber);
+        parkingRental.setIsRegistered(user.isPresent());
+
+
         parkingRental.setParkingSpot(parkingSpot);// Set the parking spot on parking rental
-
-        var totalHour = getTotalHours(parkingRental);
-
-        parkingRental.setHour(totalHour);
-        parkingRental.setValue(calculateTotalValue(parkingRental.getValue()
-                ,totalHour));
 
         return parkingRentalRepository.save(parkingRental);
 
-    }
-    private void setTotalHourAndValue(List<ParkingRental> list) {
-        for (ParkingRental p : list) {
-            if (p.getEndDate() != null){
-                p.setHour(getTotalHours(p));
-                p.setValue(calculateTotalValue(p.getValue(),p.getHour()));
-            }else {
-                p.setHour(1);
-            }
-
-        }
-    }
-
-    public Integer getTotalHours(ParkingRental parkingRental) {
-        Integer startHour = parkingRental.getStartDate().getHour();
-        Integer endHour = parkingRental.getEndDate().getHour();
-                return endHour - startHour;
-
-
-    }
-
-
-
-    public Double calculateTotalValue(Double value, Integer hour){
-        return hour * value;
     }
 
     public ParkingRental findOrFail(Long id){

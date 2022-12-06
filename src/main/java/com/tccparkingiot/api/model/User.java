@@ -1,8 +1,5 @@
 package com.tccparkingiot.api.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,7 +17,10 @@ public class User {
     private String email;
     private String cpf;
 
-//    @JsonIgnore
-    @OneToMany(mappedBy = "user")
-    private List<Vehicle> vehicles = new ArrayList<>();
+////    @JsonIgnore
+//    @OneToMany(mappedBy = "user")
+//    private List<Vehicle> vehicles = new ArrayList<>();
+
+    @OneToOne(optional = true)
+    private Plate plate;
 }

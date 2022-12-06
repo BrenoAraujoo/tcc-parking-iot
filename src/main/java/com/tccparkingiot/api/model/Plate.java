@@ -1,5 +1,6 @@
 package com.tccparkingiot.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import lombok.*;
 
@@ -17,4 +18,8 @@ public class Plate {
     @Column(nullable = false)
     @NonNull
     private String plateNumber;
+
+    @OneToOne(mappedBy = "plate")
+    @JsonIgnore
+    private User user;
 }

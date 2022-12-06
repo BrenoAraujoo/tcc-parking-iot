@@ -4,6 +4,7 @@ import com.tccparkingiot.api.model.User;
 import com.tccparkingiot.api.repository.UserRepository;
 import com.tccparkingiot.api.service.UserService;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,15 @@ public class UserController {
     public User findById(@PathVariable Long id){
         return userService.findOrFail(id);
     }
+
+    @GetMapping("/find-by-plate/{plateNumber}")
+    Optional<User> findByPlate(@PathVariable String plateNumber){
+        return userRepository.findByPlatePlateNumber(plateNumber);
+    }
+//    @GetMapping("/find-by-plate/{plateNumber}")
+//    List<User> findByPlate(@PathVariable String plateNumber){
+//        return userRepository.findByPlatePlateNumber(plateNumber);
+//    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

@@ -19,7 +19,7 @@ public class Vehicle {
     private Plate plate;
 
     private String model;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
-    private User user;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JsonIgnore
+//    private User user;
 }
