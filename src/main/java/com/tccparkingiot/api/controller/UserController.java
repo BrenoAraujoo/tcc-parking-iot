@@ -5,6 +5,7 @@ import com.tccparkingiot.api.repository.UserRepository;
 import com.tccparkingiot.api.service.UserService;
 import java.util.List;
 import java.util.Optional;
+import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,14 +33,10 @@ public class UserController {
     Optional<User> findByPlate(@PathVariable String plateNumber){
         return userRepository.findByPlatePlateNumber(plateNumber);
     }
-//    @GetMapping("/find-by-plate/{plateNumber}")
-//    List<User> findByPlate(@PathVariable String plateNumber){
-//        return userRepository.findByPlatePlateNumber(plateNumber);
-//    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public User save(@RequestBody User user){
+    public User save(@RequestBody @Valid User user){
         return userService.save(user);
     }
 

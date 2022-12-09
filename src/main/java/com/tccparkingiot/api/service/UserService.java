@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    public static final String MSG_USER_NOT_FOUND = "User with id %d not found";
+    public static final String MSG_USER_NOT_FOUND = "Usuário com id %d não encontrado";
     @Autowired
     private UserRepository userRepository;
 
@@ -36,7 +36,7 @@ public class UserService {
             );
         }catch (DataIntegrityViolationException e){
             throw new EntityInUseException(
-                    String.format("User with id %d in use, can't be removed",id)
+                    String.format("Usuário com id %d em uso, não pode ser removido",id)
             );
         }
     }

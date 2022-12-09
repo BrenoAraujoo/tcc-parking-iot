@@ -11,6 +11,5 @@ public interface ParkingRentalRepository extends JpaRepository<ParkingRental, Lo
     ParkingRental findByPlateId(Long id);
     List<ParkingRental> findByPlatePlateNumber(String plateNumber);
 
-//    @Query("Select t from ParkingRental t where t.endDate = null and t.plateNumber = :plateNumber")
     ParkingRental findByPlatePlateNumberAndEndDateIsNull(String plateNumber);
 }

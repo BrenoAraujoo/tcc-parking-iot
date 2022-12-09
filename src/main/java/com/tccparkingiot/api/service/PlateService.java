@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PlateService {
 
-    public static final String MSG_PLATE_NOT_FOUND = "Plate with id %d not found";
+    public static final String MSG_PLATE_NOT_FOUND = "Placa  com id %d não encontrada";
     @Autowired
     public PlateRepository plateRepository;
 
@@ -31,7 +31,7 @@ public class PlateService {
             plateRepository.deleteById(id);
         }catch (DataIntegrityViolationException e){
             throw new EntityInUseException(
-                    String.format("Plate with id %d in use. Can't be removed",id)
+                    String.format("Placa com id %d está em uso, não pode ser removida",id)
             );
         }catch (EmptyResultDataAccessException e){
             throw new EntityNotFoundException(

@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class ParkingRentalService {
 
-
     public static final String MSG_PARKING_RENTAL_NOT_FOUND = "Parking rental with id %d not found";
     @Autowired
     private ParkingRentalRepository parkingRentalRepository;
@@ -35,7 +34,8 @@ public class ParkingRentalService {
     }
 
     public ParkingRental findById(Long id){
-        return parkingRentalRepository.findById(id).get();
+        return parkingRentalRepository.findById(id).orElseThrow(()->new EntityNotFoundException(
+                String.format(MSG_PARKING_RENTAL_NOT_FOUND,id)));
     }
 
     public List<ParkingRental> findByPlateNumber(String plateNumber){
@@ -66,7 +66,6 @@ public class ParkingRentalService {
 
         var user = userRepository.findByPlatePlateNumber(plateNumber);
         parkingRental.setIsRegistered(user.isPresent());
-
 
         parkingRental.setParkingSpot(parkingSpot);// Set the parking spot on parking rental
 

@@ -66,12 +66,8 @@ public class ParkingRentalController {
 
     @PostMapping("/{parkingSpotId}/{plateNumber}")
     public ParkingRental save(@RequestBody ParkingRental parkingRental, @PathVariable Long parkingSpotId, @PathVariable String plateNumber) {
-
-
         var plate = plateService.findByNameOrSave(plateNumber);
         parkingRental.setPlate(plate);
-
-//        parkReservationRepository.deleteById(parkReservation.getId());
         return parkingRentalService.save(parkingRental, parkingSpotId);
     }
 

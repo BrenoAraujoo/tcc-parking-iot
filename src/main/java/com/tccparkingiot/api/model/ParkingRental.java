@@ -5,11 +5,10 @@ import java.time.LocalDateTime;
 import javax.persistence.*;
 import lombok.*;
 
-@Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@NoArgsConstructor
 @Table(name = "tb_parking_rental")
+@Entity
 public class ParkingRental {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,11 +23,9 @@ public class ParkingRental {
     @JsonIgnore
     private ParkingSpot parkingSpot;
 
-//    @CreationTimestamp
     @Column(nullable = false, columnDefinition = "timestamp")
     private LocalDateTime startDate;
 
-//    @CreationTimestamp
     @Column(nullable = true, columnDefinition = "timestamp")
     private LocalDateTime endDate;
 

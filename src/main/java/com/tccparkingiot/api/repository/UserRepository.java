@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User,Long> {
 
     Optional<User> findByPlateId(Long Id);
-//    List<User> findByPlatePlateNumber(String plateNumber);
     Optional<User> findByPlatePlateNumber(String plateNumber);
 
 }

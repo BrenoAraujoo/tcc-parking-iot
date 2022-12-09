@@ -5,6 +5,7 @@ import com.tccparkingiot.api.model.Plate;
 import com.tccparkingiot.api.repository.PlateRepository;
 import com.tccparkingiot.api.service.PlateService;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,7 +43,7 @@ public class PlateController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Plate save(@RequestBody Plate plate){
+    public Plate save(@RequestBody @Valid Plate plate){
         return plateService.save(plate);
     }
 
