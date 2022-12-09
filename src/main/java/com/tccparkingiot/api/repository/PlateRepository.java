@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PlateRepository extends JpaRepository<Plate, Long> {
     Optional<Plate> findByplateNumber(String plateNumber);
+
+
 }

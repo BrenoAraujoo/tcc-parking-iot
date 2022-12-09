@@ -1,5 +1,7 @@
 package com.tccparkingiot.api.exceptions.handler;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import com.fasterxml.jackson.databind.exc.PropertyBindingException;
 import com.tccparkingiot.api.exceptions.EntityInUseException;
 import com.tccparkingiot.api.exceptions.EntityNotFoundException;
 import java.time.LocalDateTime;
@@ -7,15 +9,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.transaction.TransactionSystemException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
@@ -23,7 +29,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 
     public static final String MSG_INTERNAL_SERVER_ERROR =
-            "Ocorreu um erro interno no Servidor. Tente novamente, caso o erro persista entre em contato com o administrador";
+            "Ocorreu um erro interno no Servidor. " +
+                    "Tente novamente, caso o erro persista entre em contato com o administrador";
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleUncaught(Exception ex, WebRequest request){
@@ -46,7 +53,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         var fieldErros = joinField(problemFields);
 
-        String detail = String.format("Campo(s) '%s' está/estão inválido(s)", fieldErros);
+        String detail = String.format("Campo(s) '%s' inválido(s)", fieldErros);
 
         HttpStatus status = HttpStatus.BAD_REQUEST;
 
@@ -58,6 +65,64 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return super.handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
     }
 
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable
+            (HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+
+        Throwable rootCause = ExceptionUtils.getRootCause(ex);
+        if (rootCause instanceof InvalidFormatException) {
+            return handleInvalidFormat((InvalidFormatException) rootCause, headers, status, request);
+        } else if (rootCause instanceof PropertyBindingException) {
+            return handlePropertyBinding((PropertyBindingException) rootCause, headers, status, request);
+        }
+
+        Problem problem = createProblemBuilder(status,ProblemType.INVALID_ATTRIBUTE_ERROR, ex.getMessage())
+                .userMessage("Atributo inválido")
+                .build();
+
+
+        return handleExceptionInternal(ex,problem,headers,status,request);
+    }
+
+    private ResponseEntity<Object> handlePropertyBinding
+            (PropertyBindingException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+
+        ProblemType problemType = ProblemType.ERROR_NONEXISTENT_PROPERTY;
+        String detail = String.format("A propriedade '%s' não existe.",
+                ex.getPath().get(0).getFieldName());
+
+        Problem problem = createProblemBuilder(status, problemType, detail)
+                .userMessage("Remova a propriedade inexistente e tente novamente")
+                .build();
+        return handleExceptionInternal(ex, problem, headers, status, request);
+    }
+
+    private ResponseEntity<Object> handleInvalidFormat
+            (InvalidFormatException ex, HttpHeaders headers, HttpStatus status, WebRequest request){
+
+        ProblemType problemType = ProblemType.ERROR_UNREADABLE_MESSAGE;
+
+        String detail = String.format
+                ("A propriedade '%s' recebeu um valor imcompatível. Ajuste e tente novamente",ex.getPath().toString());
+
+        Problem problem = createProblemBuilder(status,problemType, detail)
+                .userMessage("handle invalid format")
+                .build();
+
+        return handleExceptionInternal(ex,problem,headers,status,request);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+
+        ProblemType problemType = ProblemType.ERROR_RESOURCE_NOT_FOUND;
+        String detail = String.format("O recurso '%s', que você tentou acessar, é inexistente.", ex.getRequestURL());
+
+        Problem problem = createProblemBuilder(status,problemType,detail)
+                .build();
+
+        return handleExceptionInternal(ex, problem, headers, status, request);
+    }
 
     @ExceptionHandler(EntityNotFoundException.class)
     private ResponseEntity<?> handleEntityNotFound(EntityNotFoundException ex, WebRequest  request){
@@ -138,7 +203,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     private String joinField(List<Problem.Field> list){
         return list.stream()
                 .map(Problem.Field::getName)
-                .collect(Collectors.joining(" and "));
+                .collect(Collectors.joining(" e "));
     }
 
 
