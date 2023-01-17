@@ -3,6 +3,7 @@ package com.tccparkingiot.api.service;
 import com.tccparkingiot.api.exceptions.EntityInUseException;
 import com.tccparkingiot.api.exceptions.EntityNotFoundException;
 import com.tccparkingiot.api.model.Plate;
+import com.tccparkingiot.api.model.User;
 import com.tccparkingiot.api.repository.PlateRepository;
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +43,7 @@ public class PlateService {
     public Plate findByNameOrSave(String plateNumber){
 
         Optional<Plate> plate = plateRepository.findByplateNumber(plateNumber);
-        return plate.orElseGet(() -> plateRepository.save(new Plate(plateNumber)));
+        return plate.orElseGet(() -> plateRepository.save(Plate.builder().plateNumber(plateNumber).build()));
     }
 
     public Plate findOrFail(Long id){

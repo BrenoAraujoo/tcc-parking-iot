@@ -5,8 +5,9 @@ insert into tb_plate (plate_number) values ('BRA2E19'),('BEE4R22')
 
 
 --User
-insert into tb_user (first_name,last_name,email,cpf, plate_id) values ('Breno','Araujo','breno.souza.araujo@hotmail.com','12132123', 1);
-insert into tb_user (first_name,last_name,email,cpf, plate_id) values ('Gustavo','Sousa','gustavo@hotmail.com','12132123', 2);
+insert into tb_user (first_name,last_name,email,cpf, plate_id) values ('Breno','Araujo','breno.souza.araujo@hotmail.com','0442419500', 1);
+insert into tb_user (first_name,last_name,email,cpf, plate_id) values ('Gustavo','Sousa','gustavo@hotmail.com','0332119200', 2);
+insert into tb_user (first_name,last_name,email,cpf) values ('Guilherme','Andrade','guilherme@hotmail.com','0142219300');
 
 --Parking spot
 insert into tb_parking_spot (name, available) values ('A1',true),('A2',true),('A3',true);

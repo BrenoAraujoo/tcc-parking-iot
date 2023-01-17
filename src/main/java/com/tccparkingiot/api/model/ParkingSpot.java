@@ -2,13 +2,16 @@ package com.tccparkingiot.api.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "tb_parking_spot")
+@Builder
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ParkingSpot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

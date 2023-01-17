@@ -5,13 +5,14 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import lombok.*;
 
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@NoArgsConstructor
-@RequiredArgsConstructor
-@AllArgsConstructor
 @Table(name = "tb_plate")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Plate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -5,10 +5,14 @@ import java.time.LocalDateTime;
 import javax.persistence.*;
 import lombok.*;
 
-@Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "tb_parking_rental")
+@Builder
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ParkingRental {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

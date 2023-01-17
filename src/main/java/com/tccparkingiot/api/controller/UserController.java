@@ -20,7 +20,7 @@ public class UserController {
     @Autowired
     private UserService userService;
     @GetMapping
-    public List<User> users(){
+    public List<User> listAll(){
         return userRepository.findAll();
     }
 
@@ -43,7 +43,13 @@ public class UserController {
     @PutMapping("/{id}")
     public User update(@RequestBody User user, @PathVariable Long id){
         var actualUser = userService.findOrFail(id);
-        BeanUtils.copyProperties(user,actualUser,"id","vehicles");
+        BeanUtils.copyProperties(user,actualUser,"id");
         return userService.save(actualUser);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id){
+         userService.delete(id);
     }
 }
